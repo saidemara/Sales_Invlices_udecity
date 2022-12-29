@@ -39,7 +39,7 @@ public class InvoiceLine extends InvoiceHeader {
     String ItemPrice;
     String  Count;
     public String toString() {
-        return "InvoiceName is :=" + getItemName() + "{" +
+        return  "InvoiceID is:= "+ getInvoiceNum()+ " || InvoiceName is :=" + getItemName() + "\t{" +
                 "ItemPrice is:= " + getItemPrice() + " Count is := " + getCount()+"}";
     }
 

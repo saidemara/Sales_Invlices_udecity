@@ -8,7 +8,7 @@ public class InvoiceHeader {
     String InvoiceDate;
     String CustomerName;
 
-    ArrayList<InvoiceLine> Items = new ArrayList<InvoiceLine>() ;
+    ArrayList<InvoiceLine> Items = new ArrayList<>() ;
     public String getInvoiceID() {
         return InvoiceID;
     }
