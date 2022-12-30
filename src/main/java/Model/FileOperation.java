@@ -13,32 +13,39 @@ import java.util.List;
 public class FileOperation extends InvoiceLine {
 
     private String Flag;
-    InvoiceHeader Header;
-    InvoiceLine Line;
-    static FileOperation FIle = new FileOperation();
-    ArrayList<InvoiceHeader> InvoicesList = new ArrayList<>();
+    FileOperation FIle;
+    ArrayList<InvoiceHeader> InvoicesList = new ArrayList();
 
+    // compare invoice Header to it's line  Invoices
+    public void PrintInvoice() {
 
+        //Get All Invoice Header from Method GetInvoicesHeader();
+        ArrayList<InvoiceHeader> ListValuesOFHeader = GetInvoicesHeader();
+        //Get All Invoice Header line Details from Method  GetInvoicesLine();
+        ArrayList<InvoiceLine> ListValuesOFLine = GetInvoicesLine();
+        for (InvoiceHeader rowInvoiceHeader : ListValuesOFHeader) {
+            // Print as Flag to Print All line Details under One Invoice Header as long as Invoice Lines Includes The Same Forign Key of Invoice Header
+            boolean Print = true;
+            for (InvoiceLine RowInvoiceLine : ListValuesOFLine) {
+                // In Case The First Record of Invoice header matched with Invoice Line
+                if (rowInvoiceHeader.getInvoiceID().equals(RowInvoiceLine.getInvoiceNum()) && Print == true) {
 
+                    System.out.println("The Invoice_Num Is=:" + rowInvoiceHeader.InvoiceID + "\n" + "{ Invoice_Date =:" + rowInvoiceHeader.InvoiceDate
+                            + "," + "CustomerName=:" + rowInvoiceHeader.CustomerName + " , " +
+                            "Item_Name=:" + RowInvoiceLine.getItemName() + "," + "Item_Price=:" + RowInvoiceLine.getItemPrice() + "," + "Count_is=:" + RowInvoiceLine.getCount() + "}");
+                    Print = false;
+                    // In Case there more than Line under the same unique Invoice Header
+                } else if (rowInvoiceHeader.getInvoiceID().equals(RowInvoiceLine.getInvoiceNum()) && Print == false) {
+                    System.out.println("{ Invoice_Date =:" + rowInvoiceHeader.InvoiceDate
+                            + "," + "CustomerName=:" + rowInvoiceHeader.CustomerName + " , " +
+                            "Item_Name=:" + RowInvoiceLine.getItemName() + "," + "Item_Price=:" + RowInvoiceLine.getItemPrice() + "," + "Count_is=:" + RowInvoiceLine.getCount() + "}");
+                }
+            }
 
-    public void PrintInvoice()
-       { for (InvoiceHeader row : GetInvoicesHeader()) {
-           for (InvoiceLine RowLine : GetInvoicesLine()) {
-               if (row.getInvoiceID().equals(RowLine.getInvoiceNum())) {
-                   System.out.println("The Invoice1Num Is :" + row.InvoiceID + "\n" + "{ Invoice1Date " + row.InvoiceDate
-                           + "," + "Customer1Name" + row.CustomerName + "/nl "
-                           + "Item1Name " + RowLine.getItemName() + "," + "Item2Price" + "," + RowLine.getItemPrice() + "," + "Item2Price" + RowLine.getCount() + "}");
-                      break;
-               }
+        }
+    }
 
-               }
-           }
-       }
-
-
-
-
-
+    // Get all Invoice Headers
     public ArrayList<InvoiceHeader> GetInvoicesHeader() {
         try {
             // class with CSV file as a parameter.
@@ -48,17 +55,17 @@ public class FileOperation extends InvoiceLine {
             List<String[]> allData = csvReader.readAll();
             // print Data
             for (String[] row : allData) {
-                Header = new InvoiceHeader();
+                FIle = new FileOperation();
                 for (String cell : row) {
                     if (cell.startsWith("T", 0)) {
-                        Header.setInvoiceID(cell);
+                        FIle.setInvoiceID(cell);
                     } else if (cell.contains("/")) {
-                        Header.setInvoiceDate(cell);
+                        FIle.setInvoiceDate(cell);
                     } else {
-                        Header.setCustomerName(cell);
+                        FIle.setCustomerName(cell);
                     }
                 }
-                InvoicesList.add(Header);
+                InvoicesList.add(FIle);
 //                System.out.println(Header.toString());
 //                ArrayList<InvoiceHeader> Invoices = new ArrayList<>();
             }
@@ -69,7 +76,7 @@ public class FileOperation extends InvoiceLine {
 
     }
 
-
+    // Get Details of Invoice Header(Lines)
     public ArrayList<InvoiceLine> GetInvoicesLine() {
         try {
 
@@ -80,22 +87,22 @@ public class FileOperation extends InvoiceLine {
                     .build();
             // print Data
             for (String[] row : ReaderLine) {
-                Line = new InvoiceLine();
+                FIle = new FileOperation();
                 for (String cell : row) {
                     if (cell.startsWith("T", 0)) {
-                        Line.setInvoiceNum(cell);
+                        FIle.setInvoiceNum(cell);
                         Flag = "ID";
                     } else if (Flag.equals("ID")) {
-                        Line.setItemName(cell);
+                        FIle.setItemName(cell);
                         Flag = "EGP";
                     } else if (Flag.equals("EGP")) {
-                        Line.setItemPrice(cell);
+                        FIle.setItemPrice(cell);
                         Flag = "Count";
                     } else if (Flag.equals("Count")) {
-                        Line.setCount(cell);
+                        FIle.setCount(cell);
                     }
                 }
-                Items.add(Line);
+                Items.add(FIle);
 //                System.out.println(Line.toString());
             }
         } catch (FileNotFoundException e) {

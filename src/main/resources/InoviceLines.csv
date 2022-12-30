@@ -1,8 +1,12 @@
 Invoice Number,ItemName,ItemPrice,Count
 T110,Mouse,EGP 60.00 ,1
+T110,Laptop,EGP 6000 ,1
+T110,Cable,EGP 60.00 ,1
 T111,Camera,EGP 100.00 ,1
 T112,Laptop,"EGP 5,000.00 ",1
 T113,PC,"EGP 4,000.00 ",2
+T113,HardDisk,"EGP 4,000.00 ",3
+T114,ScreenCard,EGP 300.00 ,1
 T114,Headphone,EGP 300.00 ,2
 T115,Key,EGP 300.00 ,2
 T116,Laptop,"EGP 5,000.00 ",1
