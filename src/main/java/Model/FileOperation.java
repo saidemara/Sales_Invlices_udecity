@@ -18,7 +18,6 @@ public class FileOperation extends InvoiceLine {
 
     // compare invoice Header to it's line  Invoices
     public void PrintInvoice() {
-
         //Get All Invoice Header from Method GetInvoicesHeader();
         ArrayList<InvoiceHeader> ListValuesOFHeader = GetInvoicesHeader();
         //Get All Invoice Header line Details from Method  GetInvoicesLine();
